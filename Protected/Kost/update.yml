@@ -1,0 +1,123 @@
+info:
+  name: update
+  type: http
+  seq: 3
+
+http:
+  method: put
+  url: "{{baseUrl}}{{protected}}/kosts/e5533d6f-4da9-4e71-9c8f-010308d91e20"
+  headers:
+    - name: Authorization
+      value: Bearer YOUR_ACCESS_TOKEN
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "price": 1750000,
+        "description": "Harga naik karena listrik mahal"
+      }
+  auth:
+    type: bearer
+    token: "{{token}}"
+
+settings:
+  encodeUrl: false
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: success
+    request:
+      url: "{{baseUrl}}{{protected}}/kosts/e5533d6f-4da9-4e71-9c8f-010308d91e20"
+      method: put
+      headers:
+        - name: Authorization
+          value: Bearer YOUR_ACCESS_TOKEN
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "price": 1750000,
+            "description": "Harga naik karena listrik mahal"
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: content-security-policy
+          value: "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+        - name: cross-origin-opener-policy
+          value: same-origin
+        - name: cross-origin-resource-policy
+          value: same-origin
+        - name: origin-agent-cluster
+          value: ?1
+        - name: referrer-policy
+          value: no-referrer
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-dns-prefetch-control
+          value: off
+        - name: x-download-options
+          value: noopen
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: x-permitted-cross-domain-policies
+          value: none
+        - name: x-xss-protection
+          value: "0"
+        - name: vary
+          value: Origin, Accept-Encoding
+        - name: access-control-allow-credentials
+          value: "true"
+        - name: ratelimit-policy
+          value: 100;w=900
+        - name: ratelimit-limit
+          value: "100"
+        - name: ratelimit-remaining
+          value: "86"
+        - name: ratelimit-reset
+          value: "612"
+        - name: content-type
+          value: application/json; charset=utf-8
+        - name: content-length
+          value: "490"
+        - name: etag
+          value: W/"1ea-zL37EZ8pwGKUL/fJYVdscmA/QYo"
+        - name: date
+          value: Fri, 22 May 2026 08:44:57 GMT
+        - name: connection
+          value: keep-alive
+        - name: keep-alive
+          value: timeout=5
+      body:
+        type: json
+        data: |-
+          {
+            "status": 200,
+            "message": "Kost updated successfully",
+            "data": {
+              "id": "e5533d6f-4da9-4e71-9c8f-010308d91e20",
+              "ownerId": "2a19a3e6-005e-4cb5-93fb-29ad20071ccf",
+              "name": "Kost Bintang Lima",
+              "description": "Harga naik karena listrik mahal",
+              "price": "1750000",
+              "type": "MIXED",
+              "address": "Jl. Mawar No. 123",
+              "city": "Jakarta Selatan",
+              "province": "DKI Jakarta",
+              "latitude": -6.2,
+              "longitude": 106.8,
+              "thumbnail": null,
+              "status": "PENDING",
+              "createdAt": "2026-05-22T08:41:17.779Z",
+              "updatedAt": "2026-05-22T08:44:57.776Z"
+            }
+          }

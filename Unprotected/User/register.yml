@@ -1,0 +1,211 @@
+info:
+  name: register
+  type: http
+  seq: 1
+
+http:
+  method: post
+  url: "{{baseUrl}}{{unprotected}}/auth/register"
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Admin User",
+        "email": "admin@example.com",
+        "password": "Secret123#",
+        "passwordConfirm": "Password123!",
+        "role": "ADMIN" // ADMIN, USER, OWNER
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        const body = res.getBody();
+
+        if (body.status && body.data?.token) {
+          bru.setEnvVar("token", body.data.token);
+          console.log("Token saved");
+        } else {
+          console.log("No token found");
+        }
+
+settings:
+  encodeUrl: false
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: success
+    request:
+      url: "{{baseUrl}}{{unprotected}}/auth/register"
+      method: post
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "name": "Admin User",
+            "email": "admin@example.com",
+            "password": "Secret123#",
+            "passwordConfirm": "Password123!",
+            "role": "ADMIN" // ADMIN, USER, OWNER
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: content-security-policy
+          value: "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+        - name: cross-origin-opener-policy
+          value: same-origin
+        - name: cross-origin-resource-policy
+          value: same-origin
+        - name: origin-agent-cluster
+          value: ?1
+        - name: referrer-policy
+          value: no-referrer
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-dns-prefetch-control
+          value: off
+        - name: x-download-options
+          value: noopen
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: x-permitted-cross-domain-policies
+          value: none
+        - name: x-xss-protection
+          value: "0"
+        - name: vary
+          value: Origin, Accept-Encoding
+        - name: access-control-allow-credentials
+          value: "true"
+        - name: ratelimit-policy
+          value: 100;w=900
+        - name: ratelimit-limit
+          value: "100"
+        - name: ratelimit-remaining
+          value: "99"
+        - name: ratelimit-reset
+          value: "900"
+        - name: set-cookie
+          value: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjJhMTlhM2U2LTAwNWUtNGNiNS05M2ZiLTI5YWQyMDA3MWNjZiIsImlhdCI6MTc3OTQzODM4MiwiZXhwIjoxNzc5NTI0NzgyfQ.ROoo3xLyasx9_h8jKnEaNlWyIeNb0qkBZcUrlYyhAbU; Max-Age=86400; Path=/; Expires=Sat, 23 May 2026 08:26:22 GMT; HttpOnly
+        - name: content-type
+          value: application/json; charset=utf-8
+        - name: content-length
+          value: "456"
+        - name: etag
+          value: W/"1c8-cy7um1RAPJhgCLgDWqaaaL7uoW0"
+        - name: date
+          value: Fri, 22 May 2026 08:26:22 GMT
+        - name: connection
+          value: keep-alive
+        - name: keep-alive
+          value: timeout=5
+      body:
+        type: json
+        data: |-
+          {
+            "status": 201,
+            "message": "User registered successfully",
+            "data": {
+              "user": {
+                "id": "2a19a3e6-005e-4cb5-93fb-29ad20071ccf",
+                "email": "admin@example.com",
+                "name": "Admin User",
+                "role": "ADMIN",
+                "createdAt": "2026-05-22T08:26:22.884Z",
+                "updatedAt": "2026-05-22T08:26:22.884Z"
+              },
+              "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjJhMTlhM2U2LTAwNWUtNGNiNS05M2ZiLTI5YWQyMDA3MWNjZiIsImlhdCI6MTc3OTQzODM4MiwiZXhwIjoxNzc5NTI0NzgyfQ.ROoo3xLyasx9_h8jKnEaNlWyIeNb0qkBZcUrlYyhAbU"
+            }
+          }
+  - name: failed
+    request:
+      url: "{{baseUrl}}{{unprotected}}/auth/register"
+      method: post
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "name": "Admin User",
+            "email": "admin@example.com",
+            "password": "Secret123#",
+            "passwordConfirm": "Password123!",
+            "role": "ADMIN" // ADMIN, USER, OWNER
+          }
+    response:
+      status: 500
+      statusText: Internal Server Error
+      headers:
+        - name: content-security-policy
+          value: "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+        - name: cross-origin-opener-policy
+          value: same-origin
+        - name: cross-origin-resource-policy
+          value: same-origin
+        - name: origin-agent-cluster
+          value: ?1
+        - name: referrer-policy
+          value: no-referrer
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-dns-prefetch-control
+          value: off
+        - name: x-download-options
+          value: noopen
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: x-permitted-cross-domain-policies
+          value: none
+        - name: x-xss-protection
+          value: "0"
+        - name: vary
+          value: Origin, Accept-Encoding
+        - name: access-control-allow-credentials
+          value: "true"
+        - name: ratelimit-policy
+          value: 100;w=900
+        - name: ratelimit-limit
+          value: "100"
+        - name: ratelimit-remaining
+          value: "98"
+        - name: ratelimit-reset
+          value: "875"
+        - name: content-type
+          value: application/json; charset=utf-8
+        - name: content-length
+          value: "347"
+        - name: etag
+          value: W/"15b-Vw76aIOMf5lPCmR1sysBxA3DVrs"
+        - name: date
+          value: Fri, 22 May 2026 08:26:48 GMT
+        - name: connection
+          value: keep-alive
+        - name: keep-alive
+          value: timeout=5
+      body:
+        type: json
+        data: |-
+          {
+            "status": 500,
+            "message": "Email address is already in use",
+            "data": {
+              "stack": "Error: Email address is already in use\n    at Function.register (/mnt/C6E49313E49304B9/Kodingan/express-ts-boilerplate/src/services/auth.service.ts:22:13)\n    at register (/mnt/C6E49313E49304B9/Kodingan/express-ts-boilerplate/src/controllers/auth.controller.ts:11:20)"
+            }
+          }
