@@ -5,26 +5,15 @@ info:
 
 http:
   method: get
-  url: "{{baseUrl}}{{protected}}/kosts?page=3&limit=2&fields=name,city,owner.name,owner.id,rooms.name,rooms.price,rooms.id&include=rooms,owner"
+  url: "{{baseUrl}}{{unprotected}}/kosts?fields=id,name"
   headers:
-    - name: Authorization
-      value: Bearer YOUR_ACCESS_TOKEN
+    - name: Accept
+      value: application/json
   params:
-    - name: page
-      value: "3"
-      type: query
-    - name: limit
-      value: "2"
-      type: query
     - name: fields
-      value: name,city,owner.name,owner.id,rooms.name,rooms.price,rooms.id
+      value: id,name
       type: query
-    - name: include
-      value: rooms,owner
-      type: query
-  auth:
-    type: bearer
-    token: "{{token}}"
+  auth: inherit
 
 settings:
   encodeUrl: false
@@ -35,11 +24,15 @@ settings:
 examples:
   - name: success
     request:
-      url: "{{baseUrl}}{{protected}}/kosts"
+      url: "{{baseUrl}}{{unprotected}}/kosts?fields=id,name"
       method: get
       headers:
-        - name: Authorization
-          value: Bearer YOUR_ACCESS_TOKEN
+        - name: Accept
+          value: application/json
+      params:
+        - name: fields
+          value: id,name
+          type: query
     response:
       status: 200
       statusText: OK
@@ -77,17 +70,17 @@ examples:
         - name: ratelimit-limit
           value: "100"
         - name: ratelimit-remaining
-          value: "89"
+          value: "92"
         - name: ratelimit-reset
-          value: "715"
+          value: "649"
         - name: content-type
           value: application/json; charset=utf-8
         - name: content-length
-          value: "612"
+          value: "568"
         - name: etag
-          value: W/"264-dCMZKucZJM8/bBddfBn+IIHc8y0"
+          value: W/"238-cRVwWEvH0Ky3v64lAh0cxWCNy38"
         - name: date
-          value: Fri, 22 May 2026 08:43:14 GMT
+          value: Mon, 08 Jun 2026 12:20:12 GMT
         - name: connection
           value: keep-alive
         - name: keep-alive
@@ -97,29 +90,38 @@ examples:
         data: |-
           {
             "status": 200,
-            "message": "Kosts retrieved successfully",
+            "message": "Berhasil mengambil daftar kost",
             "data": [
               {
-                "id": "e5533d6f-4da9-4e71-9c8f-010308d91e20",
-                "ownerId": "2a19a3e6-005e-4cb5-93fb-29ad20071ccf",
-                "name": "Kost Bintang Lima",
-                "description": "Fasilitas lengkap, AC, WiFi, Kamar Mandi Dalam",
-                "price": "1500000",
-                "type": "MIXED",
-                "address": "Jl. Mawar No. 123",
-                "city": "Jakarta Selatan",
-                "province": "DKI Jakarta",
-                "latitude": -6.2,
-                "longitude": 106.8,
-                "thumbnail": null,
-                "status": "PENDING",
-                "createdAt": "2026-05-22T08:41:17.779Z",
-                "updatedAt": "2026-05-22T08:41:17.779Z",
-                "owner": {
-                  "id": "2a19a3e6-005e-4cb5-93fb-29ad20071ccf",
-                  "name": "Admin User",
-                  "email": "admin@example.com"
-                }
+                "id": "48369c3a-1384-4532-8b52-2ff19d33fc84",
+                "name": "Kost Mawar Indah"
+              },
+              {
+                "id": "858f09f3-35a6-432b-9b1f-f5665c7d5595",
+                "name": "Kost Putra Mandiri"
+              },
+              {
+                "id": "beabd824-5d37-4a7a-b094-8d53be709e4e",
+                "name": "Kost Bangkit Jaya"
+              },
+              {
+                "id": "c5361e58-f2a1-4e0b-b172-9af397fd939c",
+                "name": "Kost Bintang Lima"
+              },
+              {
+                "id": "e3d08a30-cc85-4105-b3b0-6fdf188e5683",
+                "name": "Kost Sultan BSD"
+              },
+              {
+                "id": "f2f18569-9b77-40de-8ad4-f7cc79b92168",
+                "name": "Kost Bangkit Jaya"
               }
-            ]
+            ],
+            "meta": {
+              "results": 6,
+              "total": 6,
+              "page": 1,
+              "limit": 10,
+              "totalPages": 1
+            }
           }

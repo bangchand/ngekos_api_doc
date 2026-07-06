@@ -1,11 +1,11 @@
 info:
-  name: update
+  name: login
   type: http
   seq: 2
 
 http:
-  method: put
-  url: "{{baseUrl}}{{protected}}/kosts/f2f18569-9b77-40de-8ad4-f7cc79b92168"
+  method: post
+  url: "{{baseUrl}}{{unprotected}}/auth/login"
   headers:
     - name: Content-Type
       value: application/json
@@ -13,9 +13,23 @@ http:
     type: json
     data: |-
       {
-        "description": "Deskripsi kost"
+        "email": "admin@example.com",
+        "password": "password123"
       }
   auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        const body = res.getBody();
+
+        if (body.status && body.data?.token) {
+          bru.setEnvVar("token", body.data.token);
+          console.log("Token saved");
+        } else {
+          console.log("No token found");
+        }
 
 settings:
   encodeUrl: false
@@ -26,19 +40,17 @@ settings:
 examples:
   - name: success
     request:
-      url: "{{baseUrl}}{{protected}}/kosts/e5533d6f-4da9-4e71-9c8f-010308d91e20"
-      method: put
+      url: "{{baseUrl}}{{unprotected}}/auth/login"
+      method: post
       headers:
-        - name: Authorization
-          value: Bearer YOUR_ACCESS_TOKEN
         - name: Content-Type
           value: application/json
       body:
         type: json
         data: |-
           {
-            "price": 1750000,
-            "description": "Harga naik karena listrik mahal"
+            "email": "admin@example.com",
+            "password": "Secret123#"
           }
     response:
       status: 200
@@ -77,17 +89,19 @@ examples:
         - name: ratelimit-limit
           value: "100"
         - name: ratelimit-remaining
-          value: "86"
+          value: "97"
         - name: ratelimit-reset
-          value: "612"
+          value: "852"
+        - name: set-cookie
+          value: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjJhMTlhM2U2LTAwNWUtNGNiNS05M2ZiLTI5YWQyMDA3MWNjZiIsImlhdCI6MTc3OTQzODQzMSwiZXhwIjoxNzc5NTI0ODMxfQ.Qp7jUw4L1ML8r9rOmETYwjz4NntDCQBlYASK3VZmlok; Max-Age=86400; Path=/; Expires=Sat, 23 May 2026 08:27:11 GMT; HttpOnly
         - name: content-type
           value: application/json; charset=utf-8
         - name: content-length
-          value: "490"
+          value: "455"
         - name: etag
-          value: W/"1ea-zL37EZ8pwGKUL/fJYVdscmA/QYo"
+          value: W/"1c7-Kx01zUUZMbs47VOXe7O164YthCw"
         - name: date
-          value: Fri, 22 May 2026 08:44:57 GMT
+          value: Fri, 22 May 2026 08:27:11 GMT
         - name: connection
           value: keep-alive
         - name: keep-alive
@@ -97,22 +111,16 @@ examples:
         data: |-
           {
             "status": 200,
-            "message": "Kost updated successfully",
+            "message": "User logged in successfully",
             "data": {
-              "id": "e5533d6f-4da9-4e71-9c8f-010308d91e20",
-              "ownerId": "2a19a3e6-005e-4cb5-93fb-29ad20071ccf",
-              "name": "Kost Bintang Lima",
-              "description": "Harga naik karena listrik mahal",
-              "price": "1750000",
-              "type": "MIXED",
-              "address": "Jl. Mawar No. 123",
-              "city": "Jakarta Selatan",
-              "province": "DKI Jakarta",
-              "latitude": -6.2,
-              "longitude": 106.8,
-              "thumbnail": null,
-              "status": "PENDING",
-              "createdAt": "2026-05-22T08:41:17.779Z",
-              "updatedAt": "2026-05-22T08:44:57.776Z"
+              "user": {
+                "id": "2a19a3e6-005e-4cb5-93fb-29ad20071ccf",
+                "email": "admin@example.com",
+                "name": "Admin User",
+                "role": "ADMIN",
+                "createdAt": "2026-05-22T08:26:22.884Z",
+                "updatedAt": "2026-05-22T08:26:22.884Z"
+              },
+              "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjJhMTlhM2U2LTAwNWUtNGNiNS05M2ZiLTI5YWQyMDA3MWNjZiIsImlhdCI6MTc3OTQzODQzMSwiZXhwIjoxNzc5NTI0ODMxfQ.Qp7jUw4L1ML8r9rOmETYwjz4NntDCQBlYASK3VZmlok"
             }
           }

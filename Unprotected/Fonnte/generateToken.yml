@@ -1,0 +1,24 @@
+info:
+  name: generateToken
+  type: http
+  seq: 1
+
+http:
+  method: post
+  url: "{{baseUrl}}{{unprotected}}/fonnte/request-otp"
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "phone": "0859189566453"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: false
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

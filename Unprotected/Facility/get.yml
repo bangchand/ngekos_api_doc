@@ -1,0 +1,205 @@
+info:
+  name: get
+  type: http
+  seq: 1
+
+http:
+  method: get
+  url: "{{baseUrl}}{{unprotected}}/facilities?groupByField=type&pagination=false"
+  headers:
+    - name: Accept
+      value: application/json
+  params:
+    - name: groupByField
+      value: type
+      type: query
+    - name: pagination
+      value: "false"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: false
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: success
+    request:
+      url: "{{baseUrl}}{{unprotected}}/facilities?groupByField=type&pagination=false"
+      method: get
+      headers:
+        - name: Accept
+          value: application/json
+      params:
+        - name: groupByField
+          value: type
+          type: query
+        - name: pagination
+          value: "false"
+          type: query
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: content-security-policy
+          value: "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+        - name: cross-origin-opener-policy
+          value: same-origin
+        - name: cross-origin-resource-policy
+          value: same-origin
+        - name: origin-agent-cluster
+          value: ?1
+        - name: referrer-policy
+          value: no-referrer
+        - name: strict-transport-security
+          value: max-age=31536000; includeSubDomains
+        - name: x-content-type-options
+          value: nosniff
+        - name: x-dns-prefetch-control
+          value: off
+        - name: x-download-options
+          value: noopen
+        - name: x-frame-options
+          value: SAMEORIGIN
+        - name: x-permitted-cross-domain-policies
+          value: none
+        - name: x-xss-protection
+          value: "0"
+        - name: vary
+          value: Origin, Accept-Encoding
+        - name: access-control-allow-credentials
+          value: "true"
+        - name: ratelimit-policy
+          value: 100;w=900
+        - name: ratelimit-limit
+          value: "100"
+        - name: ratelimit-remaining
+          value: "94"
+        - name: ratelimit-reset
+          value: "795"
+        - name: content-type
+          value: application/json; charset=utf-8
+        - name: etag
+          value: W/"9d7-7x6Z80AHXz/V705WUr58/uZSALE"
+        - name: date
+          value: Fri, 26 Jun 2026 13:53:05 GMT
+        - name: connection
+          value: keep-alive
+        - name: keep-alive
+          value: timeout=5
+        - name: transfer-encoding
+          value: chunked
+      body:
+        type: json
+        data: |-
+          {
+            "status": 200,
+            "message": "Berhasil mengambil daftar fasilitas",
+            "data": {
+              "ROOM_FACILITY": [
+                {
+                  "id": "fc55eb92-d7dd-4166-9d89-c39a711d98bf",
+                  "name": "WiFi",
+                  "type": "ROOM_FACILITY",
+                  "icon": null,
+                  "description": "High-speed internet access",
+                  "createdAt": "2026-06-03T15:12:44.369Z",
+                  "updatedAt": "2026-06-03T15:12:44.369Z"
+                },
+                {
+                  "id": "abd47ab3-a696-4bf5-a3ec-b53676b51b4d",
+                  "name": "AC",
+                  "type": "ROOM_FACILITY",
+                  "icon": null,
+                  "description": "Air conditioning",
+                  "createdAt": "2026-06-03T15:12:44.377Z",
+                  "updatedAt": "2026-06-03T15:12:44.377Z"
+                },
+                {
+                  "id": "3c748492-6cd6-4736-a864-e5ba40532562",
+                  "name": "Kamar Mandi Dalam",
+                  "type": "ROOM_FACILITY",
+                  "icon": null,
+                  "description": "Private bathroom",
+                  "createdAt": "2026-06-03T15:12:44.378Z",
+                  "updatedAt": "2026-06-03T15:12:44.378Z"
+                },
+                {
+                  "id": "2aff4846-3be0-49db-8823-fdb702c1907d",
+                  "name": "Kasur",
+                  "type": "ROOM_FACILITY",
+                  "icon": null,
+                  "description": "Springbed 120x200",
+                  "createdAt": "2026-06-03T15:12:44.380Z",
+                  "updatedAt": "2026-06-03T15:12:44.380Z"
+                },
+                {
+                  "id": "2be234e1-75c2-475a-b7d0-d8a6a2c13f14",
+                  "name": "Lemari Pakaian",
+                  "type": "ROOM_FACILITY",
+                  "icon": null,
+                  "description": "Lemari kayu 2 pintu",
+                  "createdAt": "2026-06-03T15:12:44.382Z",
+                  "updatedAt": "2026-06-03T15:12:44.382Z"
+                },
+                {
+                  "id": "94ffc763-ccfc-4701-a50c-58a367b2342d",
+                  "name": "Meja Belajar",
+                  "type": "ROOM_FACILITY",
+                  "icon": null,
+                  "description": "Meja dan kursi kerja",
+                  "createdAt": "2026-06-03T15:12:44.384Z",
+                  "updatedAt": "2026-06-03T15:12:44.384Z"
+                },
+                {
+                  "id": "9e11f4d4-4b1d-48b8-a8ce-eb01661c07b6",
+                  "name": "Dapur Bersama",
+                  "type": "ROOM_FACILITY",
+                  "icon": null,
+                  "description": "Dapur lengkap dengan kompor",
+                  "createdAt": "2026-06-03T15:12:44.386Z",
+                  "updatedAt": "2026-06-03T15:12:44.386Z"
+                },
+                {
+                  "id": "2259b445-3ce8-453b-9ec6-e7c5dd81db86",
+                  "name": "Kulkas Bersama",
+                  "type": "ROOM_FACILITY",
+                  "icon": null,
+                  "description": "Kulkas di area umum",
+                  "createdAt": "2026-06-03T15:12:44.387Z",
+                  "updatedAt": "2026-06-03T15:12:44.387Z"
+                },
+                {
+                  "id": "d1bd8449-ccb1-42a5-97db-10ccf7862c93",
+                  "name": "Parkir Motor",
+                  "type": "ROOM_FACILITY",
+                  "icon": null,
+                  "description": "Area parkir luas",
+                  "createdAt": "2026-06-03T15:12:44.388Z",
+                  "updatedAt": "2026-06-03T15:12:44.388Z"
+                },
+                {
+                  "id": "fb58c767-38d8-4bf4-85db-ed57322ec59b",
+                  "name": "CCTV 24 Jam",
+                  "type": "ROOM_FACILITY",
+                  "icon": null,
+                  "description": "Keamanan ekstra",
+                  "createdAt": "2026-06-03T15:12:44.389Z",
+                  "updatedAt": "2026-06-03T15:12:44.389Z"
+                }
+              ],
+              "PUBLIC_FACILITY": [
+                {
+                  "id": "71ae3dab-07c5-4993-a75f-be6a9f0ab917",
+                  "name": "AC 1/2 PK Daikin",
+                  "type": "PUBLIC_FACILITY",
+                  "icon": "fa-solid fa-snowflake",
+                  "description": "AC dingin menyegarkan siap pakai",
+                  "createdAt": "2026-06-07T17:32:25.747Z",
+                  "updatedAt": "2026-06-07T17:38:34.911Z"
+                }
+              ]
+            }
+          }

@@ -1,30 +1,12 @@
 info:
-  name: getAll
+  name: getById
   type: http
-  seq: 1
+  seq: 2
 
 http:
   method: get
-  url: "{{baseUrl}}{{protected}}/kosts?page=3&limit=2&fields=name,city,owner.name,owner.id,rooms.name,rooms.price,rooms.id&include=rooms,owner"
-  headers:
-    - name: Authorization
-      value: Bearer YOUR_ACCESS_TOKEN
-  params:
-    - name: page
-      value: "3"
-      type: query
-    - name: limit
-      value: "2"
-      type: query
-    - name: fields
-      value: name,city,owner.name,owner.id,rooms.name,rooms.price,rooms.id
-      type: query
-    - name: include
-      value: rooms,owner
-      type: query
-  auth:
-    type: bearer
-    token: "{{token}}"
+  url: "{{baseUrl}}{{protected}}/facilities/8fbe01cc-99bf-4729-9e2b-a25a14adf7f1"
+  auth: inherit
 
 settings:
   encodeUrl: false
@@ -35,11 +17,8 @@ settings:
 examples:
   - name: success
     request:
-      url: "{{baseUrl}}{{protected}}/kosts"
+      url: "{{baseUrl}}{{protected}}/facilities/8fbe01cc-99bf-4729-9e2b-a25a14adf7f1"
       method: get
-      headers:
-        - name: Authorization
-          value: Bearer YOUR_ACCESS_TOKEN
     response:
       status: 200
       statusText: OK
@@ -77,17 +56,17 @@ examples:
         - name: ratelimit-limit
           value: "100"
         - name: ratelimit-remaining
-          value: "89"
+          value: "98"
         - name: ratelimit-reset
-          value: "715"
+          value: "871"
         - name: content-type
           value: application/json; charset=utf-8
         - name: content-length
-          value: "612"
+          value: "323"
         - name: etag
-          value: W/"264-dCMZKucZJM8/bBddfBn+IIHc8y0"
+          value: W/"143-ncn9u7Ame9x1N534K02NIP8l+qM"
         - name: date
-          value: Fri, 22 May 2026 08:43:14 GMT
+          value: Sun, 24 May 2026 03:29:21 GMT
         - name: connection
           value: keep-alive
         - name: keep-alive
@@ -97,29 +76,14 @@ examples:
         data: |-
           {
             "status": 200,
-            "message": "Kosts retrieved successfully",
-            "data": [
-              {
-                "id": "e5533d6f-4da9-4e71-9c8f-010308d91e20",
-                "ownerId": "2a19a3e6-005e-4cb5-93fb-29ad20071ccf",
-                "name": "Kost Bintang Lima",
-                "description": "Fasilitas lengkap, AC, WiFi, Kamar Mandi Dalam",
-                "price": "1500000",
-                "type": "MIXED",
-                "address": "Jl. Mawar No. 123",
-                "city": "Jakarta Selatan",
-                "province": "DKI Jakarta",
-                "latitude": -6.2,
-                "longitude": 106.8,
-                "thumbnail": null,
-                "status": "PENDING",
-                "createdAt": "2026-05-22T08:41:17.779Z",
-                "updatedAt": "2026-05-22T08:41:17.779Z",
-                "owner": {
-                  "id": "2a19a3e6-005e-4cb5-93fb-29ad20071ccf",
-                  "name": "Admin User",
-                  "email": "admin@example.com"
-                }
-              }
-            ]
+            "message": "Facility retrieved successfully",
+            "data": {
+              "id": "8fbe01cc-99bf-4729-9e2b-a25a14adf7f1",
+              "name": "High-Speed WiFi",
+              "thumbnail": "https://example.com/wifi-icon.png",
+              "description": "Up to 100Mbps internet connection",
+              "createdAt": "2026-05-24T03:26:04.746Z",
+              "updatedAt": "2026-05-24T03:26:04.746Z",
+              "kosts": []
+            }
           }

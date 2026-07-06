@@ -1,17 +1,12 @@
 info:
   name: delete
   type: http
-  seq: 3
+  seq: 4
 
 http:
-  method: delete
-  url: "{{baseUrl}}{{protected}}/kosts/e5533d6f-4da9-4e71-9c8f-010308d91e20"
-  headers:
-    - name: Authorization
-      value: Bearer YOUR_ACCESS_TOKEN
-  auth:
-    type: bearer
-    token: "{{token}}"
+  method: DELETE
+  url: "{{baseUrl}}{{protected}}/facilities/650eeb21-05b1-4393-94b4-b18fd077ef24"
+  auth: inherit
 
 settings:
   encodeUrl: false
@@ -22,11 +17,8 @@ settings:
 examples:
   - name: success
     request:
-      url: "{{baseUrl}}{{protected}}/kosts/e5533d6f-4da9-4e71-9c8f-010308d91e20"
-      method: delete
-      headers:
-        - name: Authorization
-          value: Bearer YOUR_ACCESS_TOKEN
+      url: "{{baseUrl}}{{protected}}/facilities/8fbe01cc-99bf-4729-9e2b-a25a14adf7f1"
+      method: DELETE
     response:
       status: 200
       statusText: OK
@@ -64,17 +56,17 @@ examples:
         - name: ratelimit-limit
           value: "100"
         - name: ratelimit-remaining
-          value: "84"
+          value: "81"
         - name: ratelimit-reset
-          value: "524"
+          value: "493"
         - name: content-type
           value: application/json; charset=utf-8
         - name: content-length
-          value: "64"
+          value: "68"
         - name: etag
-          value: W/"40-oBciS0oL4y6CyifXr2yOhJxXAaw"
+          value: W/"44-PUiBQ8VfmcENxbSaU+lSI+74pKs"
         - name: date
-          value: Fri, 22 May 2026 08:46:26 GMT
+          value: Sun, 24 May 2026 03:35:38 GMT
         - name: connection
           value: keep-alive
         - name: keep-alive
@@ -84,6 +76,6 @@ examples:
         data: |-
           {
             "status": 200,
-            "message": "Kost deleted successfully",
+            "message": "Facility deleted successfully",
             "data": null
           }

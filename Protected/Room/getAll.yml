@@ -1,30 +1,16 @@
 info:
   name: getAll
   type: http
-  seq: 1
+  seq: 2
 
 http:
   method: get
-  url: "{{baseUrl}}{{protected}}/kosts?page=3&limit=2&fields=name,city,owner.name,owner.id,rooms.name,rooms.price,rooms.id&include=rooms,owner"
-  headers:
-    - name: Authorization
-      value: Bearer YOUR_ACCESS_TOKEN
+  url: "{{baseUrl}}{{protected}}/rooms?fields=name,price,id,images.url,video.url,video.id,images.id"
   params:
-    - name: page
-      value: "3"
-      type: query
-    - name: limit
-      value: "2"
-      type: query
     - name: fields
-      value: name,city,owner.name,owner.id,rooms.name,rooms.price,rooms.id
+      value: name,price,id,images.url,video.url,video.id,images.id
       type: query
-    - name: include
-      value: rooms,owner
-      type: query
-  auth:
-    type: bearer
-    token: "{{token}}"
+  auth: inherit
 
 settings:
   encodeUrl: false
@@ -35,11 +21,12 @@ settings:
 examples:
   - name: success
     request:
-      url: "{{baseUrl}}{{protected}}/kosts"
+      url: "{{baseUrl}}{{protected}}/rooms?include=kost,facilities"
       method: get
-      headers:
-        - name: Authorization
-          value: Bearer YOUR_ACCESS_TOKEN
+      params:
+        - name: include
+          value: kost,facilities
+          type: query
     response:
       status: 200
       statusText: OK
@@ -77,17 +64,17 @@ examples:
         - name: ratelimit-limit
           value: "100"
         - name: ratelimit-remaining
-          value: "89"
+          value: "96"
         - name: ratelimit-reset
-          value: "715"
+          value: "835"
         - name: content-type
           value: application/json; charset=utf-8
         - name: content-length
-          value: "612"
+          value: "781"
         - name: etag
-          value: W/"264-dCMZKucZJM8/bBddfBn+IIHc8y0"
+          value: W/"30d-ehDpTRFTeICAIkqyUrLPa9nfFeo"
         - name: date
-          value: Fri, 22 May 2026 08:43:14 GMT
+          value: Sun, 07 Jun 2026 17:14:44 GMT
         - name: connection
           value: keep-alive
         - name: keep-alive
@@ -97,29 +84,35 @@ examples:
         data: |-
           {
             "status": 200,
-            "message": "Kosts retrieved successfully",
+            "message": "Berhasil mengambil daftar kamar",
             "data": [
               {
-                "id": "e5533d6f-4da9-4e71-9c8f-010308d91e20",
-                "ownerId": "2a19a3e6-005e-4cb5-93fb-29ad20071ccf",
-                "name": "Kost Bintang Lima",
-                "description": "Fasilitas lengkap, AC, WiFi, Kamar Mandi Dalam",
-                "price": "1500000",
-                "type": "MIXED",
-                "address": "Jl. Mawar No. 123",
-                "city": "Jakarta Selatan",
-                "province": "DKI Jakarta",
-                "latitude": -6.2,
-                "longitude": 106.8,
-                "thumbnail": null,
-                "status": "PENDING",
-                "createdAt": "2026-05-22T08:41:17.779Z",
-                "updatedAt": "2026-05-22T08:41:17.779Z",
-                "owner": {
-                  "id": "2a19a3e6-005e-4cb5-93fb-29ad20071ccf",
-                  "name": "Admin User",
-                  "email": "admin@example.com"
-                }
+                "id": "3fcfcfe5-6c9e-4892-8971-3f7775087fc2",
+                "kostId": "f2f18569-9b77-40de-8ad4-f7cc79b92168",
+                "name": "Kamar Tipe A (AC + KM Dalam)",
+                "description": "Kamar berukuran 4x4 meter dengan ventilasi yang baik.",
+                "price": "2000000",
+                "stock": 4,
+                "createdAt": "2026-06-07T16:19:09.480Z",
+                "updatedAt": "2026-06-07T16:19:09.480Z",
+                "facilities": [
+                  {
+                    "id": "2aff4846-3be0-49db-8823-fdb702c1907d",
+                    "name": "Kasur",
+                    "thumbnail": null,
+                    "description": "Springbed 120x200",
+                    "createdAt": "2026-06-03T15:12:44.380Z",
+                    "updatedAt": "2026-06-03T15:12:44.380Z"
+                  },
+                  {
+                    "id": "2259b445-3ce8-453b-9ec6-e7c5dd81db86",
+                    "name": "Kulkas Bersama",
+                    "thumbnail": null,
+                    "description": "Kulkas di area umum",
+                    "createdAt": "2026-06-03T15:12:44.387Z",
+                    "updatedAt": "2026-06-03T15:12:44.387Z"
+                  }
+                ]
               }
             ]
           }

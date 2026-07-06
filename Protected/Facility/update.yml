@@ -1,0 +1,26 @@
+info:
+  name: update
+  type: http
+  seq: 5
+
+http:
+  method: patch
+  url: "{{baseUrl}}{{protected}}/facilities/71ae3dab-07c5-4993-a75f-be6a9f0ab917"
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |+
+      {
+        "type": "PUBLIC_FACILITY", //ROOM_SPEC, ROOM_FACILITY, BATHROOM_FACILITY, PUBLIC_FACILITY, PARKING_FACILITY, KOST_FACILITY
+        "thumbnail": null
+      }
+
+  auth: inherit
+
+settings:
+  encodeUrl: false
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
